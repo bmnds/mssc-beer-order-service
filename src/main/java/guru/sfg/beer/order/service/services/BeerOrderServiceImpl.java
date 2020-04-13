@@ -17,6 +17,16 @@
 
 package guru.sfg.beer.order.service.services;
 
+import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import guru.sfg.beer.order.service.domain.BeerOrder;
 import guru.sfg.beer.order.service.domain.BeerOrderStatusEnum;
 import guru.sfg.beer.order.service.domain.Customer;
@@ -26,16 +36,6 @@ import guru.sfg.beer.order.service.web.mappers.BeerOrderMapper;
 import guru.sfg.brewery.model.BeerOrderDto;
 import guru.sfg.brewery.model.BeerOrderPagedList;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -44,15 +44,13 @@ public class BeerOrderServiceImpl implements BeerOrderService {
     private final BeerOrderRepository beerOrderRepository;
     private final CustomerRepository customerRepository;
     private final BeerOrderMapper beerOrderMapper;
-    private final ApplicationEventPublisher publisher;
 
     public BeerOrderServiceImpl(BeerOrderRepository beerOrderRepository,
                                 CustomerRepository customerRepository,
-                                BeerOrderMapper beerOrderMapper, ApplicationEventPublisher publisher) {
+                                BeerOrderMapper beerOrderMapper) {
         this.beerOrderRepository = beerOrderRepository;
         this.customerRepository = customerRepository;
         this.beerOrderMapper = beerOrderMapper;
-        this.publisher = publisher;
     }
 
     @Override

@@ -95,7 +95,7 @@ public class BeerOrderManagerImpl implements BeerOrderManager {
     private void sendBeerOrderEvent(BeerOrder beerOrder, BeerOrderEventEnum eventEnum){
         StateMachine<BeerOrderStatusEnum, BeerOrderEventEnum> sm = build(beerOrder);
 
-        Message msg = MessageBuilder.withPayload(eventEnum)
+        Message<BeerOrderEventEnum> msg = MessageBuilder.withPayload(eventEnum)
                 .setHeader(ORDER_ID_HEADER, beerOrder.getId().toString())
                 .build();
 
